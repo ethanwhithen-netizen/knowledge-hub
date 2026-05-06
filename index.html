@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge Hub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #111827;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #1e293b;
+    }
+
+    header h1 {
+      color: #60a5fa;
+    }
+
+    nav button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      margin-left: 10px;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      transition: 0.3s;
+    }
+
+    nav button:hover {
+      background: #1d4ed8;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 40px auto;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      color: #93c5fd;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
+      background: #334155;
+      color: white;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      margin-top: 15px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #3b82f6;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #2563eb;
+    }
+
+    .posts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .post {
+      background: #111827;
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid #334155;
+    }
+
+    .post h4 {
+      margin-bottom: 10px;
+      color: #60a5fa;
+    }
+
+    .post small {
+      color: #94a3b8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
+      color: #94a3b8;
+      border-top: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Knowledge Hub</h1>
+    <nav>
+      <button onclick="showMessage()">Login</button>
+      <button onclick="showMessage()">Create Account</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Share Knowledge With The World 📚</h2>
+    <p>
+      A place where people can create pages, write essays, blogs, lessons,
+      tutorials, and share ideas with others.
+    </p>
+  </section>
+
+  <div class="container">
+
+    <div class="card">
+      <h3>Create a New Post</h3>
+
+      <input type="text" id="title" placeholder="Enter your title..." />
+
+      <textarea id="content" placeholder="Write your lesson, essay, or blog here..."></textarea>
+
+      <button class="submit-btn" onclick="createPost()">Publish Post</button>
+    </div>
+
+    <div class="card">
+      <h3>Community Posts</h3>
+
+      <div class="posts" id="postsContainer">
+
+        <div class="post">
+          <h4>Welcome to Knowledge Hub</h4>
+          <small>Posted by Admin</small>
+          <p style="margin-top:10px; line-height:1.6;">
+            This is a platform where people can share lessons, essays,
+            blogs, tutorials, and creative writing.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 Knowledge Hub — Built with HTML, CSS, and JavaScript.
+  </footer>
+
+  <script>
+    function showMessage() {
+      alert("Authentication system can be connected later with a real database and backend.");
+    }
+
+    function createPost() {
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+
+      if(title === "" || content === "") {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const post = document.createElement("div");
+      post.classList.add("post");
+
+      post.innerHTML = `
+        <h4>${title}</h4>
+        <small>Posted by User</small>
+        <p style="margin-top:10px; line-height:1.6;">${content}</p>
+      `;
+
+      document.getElementById("postsContainer").prepend(post);
+
+      document.getElementById("title").value = "";
+      document.getElementById("content").value = "";
+    }
+  </script>
+
+</body>
+</html>
