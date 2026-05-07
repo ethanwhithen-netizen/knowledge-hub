@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,272 +14,229 @@
 <style>
 
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-  background:#020617;
-  color:white;
-  min-height:100vh;
-  display:flex;
-}
-
-#authScreen{
-  position:fixed;
-  inset:0;
-  background:#020617;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-
-.auth-box{
-  width:400px;
-  max-width:90%;
-  background:#0f172a;
-  padding:40px;
-  border-radius:30px;
-  border:1px solid rgba(255,255,255,0.08);
-  text-align:center;
-}
-
-.auth-box h1{
-  color:#60a5fa;
-  margin-bottom:15px;
-}
-
-.auth-box p{
-  color:#94a3b8;
-  margin-bottom:20px;
-}
-
-.auth-box input{
-  width:100%;
-  margin-top:15px;
+background:#020617;
+color:white;
+display:flex;
+min-height:100vh;
 }
 
 .sidebar{
-  width:270px;
-  background:#0f172a;
-  padding:30px 20px;
-  position:fixed;
-  height:100%;
-  overflow:auto;
-  border-right:1px solid rgba(255,255,255,0.08);
+width:270px;
+background:#0f172a;
+padding:30px 20px;
+position:fixed;
+height:100%;
+overflow:auto;
+border-right:1px solid rgba(255,255,255,0.08);
 }
 
 .logo{
-  font-size:2rem;
-  font-weight:700;
-  color:#60a5fa;
-  margin-bottom:35px;
+font-size:2rem;
+font-weight:700;
+color:#60a5fa;
+margin-bottom:35px;
 }
 
 .profile-card{
-  background:rgba(255,255,255,0.05);
-  padding:20px;
-  border-radius:25px;
-  text-align:center;
-  margin-bottom:35px;
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:25px;
+text-align:center;
+margin-bottom:35px;
+cursor:pointer;
 }
 
 .avatar{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:#2563eb;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:auto;
-  font-size:2rem;
-  margin-bottom:15px;
+width:80px;
+height:80px;
+border-radius:50%;
+background:#2563eb;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+font-size:2rem;
+margin-bottom:15px;
+overflow:hidden;
+}
+
+.avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 .sidebar ul{
-  list-style:none;
+list-style:none;
 }
 
 .sidebar li{
-  padding:15px;
-  margin-bottom:12px;
-  border-radius:16px;
-  cursor:pointer;
-  background:rgba(255,255,255,0.03);
-  transition:0.3s;
+padding:15px;
+margin-bottom:12px;
+border-radius:16px;
+cursor:pointer;
+background:rgba(255,255,255,0.03);
+transition:0.3s;
 }
 
 .sidebar li:hover{
-  background:rgba(255,255,255,0.08);
+background:rgba(255,255,255,0.08);
 }
 
 .main{
-  margin-left:270px;
-  width:100%;
-  padding:40px;
-}
-
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:35px;
+margin-left:270px;
+width:100%;
+padding:40px;
 }
 
 .hero{
-  background:linear-gradient(135deg,#111827,#1e293b);
-  padding:50px;
-  border-radius:30px;
-  margin-bottom:30px;
-}
-
-.hero h2{
-  font-size:3rem;
-  margin-bottom:15px;
+background:linear-gradient(135deg,#111827,#1e293b);
+padding:50px;
+border-radius:30px;
+margin-bottom:30px;
 }
 
 .card{
-  background:#0f172a;
-  padding:30px;
-  border-radius:28px;
-  margin-bottom:30px;
+background:#0f172a;
+padding:30px;
+border-radius:28px;
+margin-bottom:30px;
+}
+
+.posts{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+}
+
+.post{
+background:#111827;
+padding:25px;
+border-radius:25px;
+}
+
+.post h4{
+color:#60a5fa;
+margin-bottom:10px;
+}
+
+.post p{
+margin-top:15px;
+line-height:1.7;
+}
+
+.post img{
+width:100%;
+border-radius:18px;
+margin-top:15px;
+}
+
+.post-category{
+display:inline-block;
+margin-top:15px;
+background:#1d4ed8;
+padding:7px 14px;
+border-radius:30px;
+font-size:0.85rem;
+}
+
+.actions{
+display:flex;
+gap:10px;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+.actions button{
+border:none;
+padding:10px 15px;
+border-radius:12px;
+color:white;
+cursor:pointer;
+}
+
+.like-btn{
+background:#db2777;
+}
+
+.edit-btn{
+background:#2563eb;
+}
+
+.delete-btn{
+background:crimson;
+}
+
+.comment-btn{
+background:#059669;
+}
+
+.comments{
+margin-top:15px;
+}
+
+.comment{
+background:rgba(255,255,255,0.05);
+padding:10px;
+border-radius:12px;
+margin-top:10px;
 }
 
 input,
 textarea,
 select{
-  width:100%;
-  padding:15px;
-  border:none;
-  border-radius:15px;
-  background:#1e293b;
-  color:white;
-  margin-top:15px;
-}
-
-textarea{
-  min-height:180px;
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:#1e293b;
+color:white;
+margin-top:15px;
 }
 
 button{
-  border:none;
-  cursor:pointer;
+border:none;
+cursor:pointer;
 }
 
-.submit-btn,
-.top-buttons button,
-.auth-box button{
-  background:#2563eb;
-  color:white;
-  padding:14px 20px;
-  border-radius:15px;
-  margin-top:18px;
+.submit-btn{
+background:#2563eb;
+color:white;
+padding:14px 20px;
+border-radius:15px;
+margin-top:18px;
 }
 
-.posts{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:25px;
+#authScreen{
+position:fixed;
+inset:0;
+background:#020617;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
 }
 
-.post{
-  background:#111827;
-  padding:25px;
-  border-radius:25px;
-}
-
-.post h4{
-  color:#60a5fa;
-  margin-bottom:10px;
-}
-
-.post p{
-  margin-top:15px;
-  line-height:1.7;
-}
-
-.post img{
-  width:100%;
-  border-radius:18px;
-  margin-top:15px;
-}
-
-.post-category{
-  display:inline-block;
-  margin-top:15px;
-  background:#1d4ed8;
-  padding:7px 14px;
-  border-radius:30px;
-  font-size:0.85rem;
-}
-
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:20px;
-  flex-wrap:wrap;
-}
-
-.actions button{
-  color:white;
-  padding:10px 15px;
-  border-radius:12px;
-}
-
-.like-btn{
-  background:#db2777;
-}
-
-.edit-btn{
-  background:#2563eb;
-}
-
-.delete-btn{
-  background:crimson;
-}
-
-.comment-btn{
-  background:#059669;
-}
-
-.comments{
-  margin-top:15px;
-}
-
-.comment{
-  background:rgba(255,255,255,0.05);
-  padding:10px;
-  border-radius:12px;
-  margin-top:10px;
+.auth-box{
+width:400px;
+max-width:90%;
+background:#0f172a;
+padding:40px;
+border-radius:30px;
+text-align:center;
 }
 
 footer{
-  margin-top:40px;
-  text-align:center;
-  color:#94a3b8;
-}
-
-@media(max-width:900px){
-
-  body{
-    display:block;
-  }
-
-  .sidebar{
-    position:relative;
-    width:100%;
-    height:auto;
-  }
-
-  .main{
-    margin-left:0;
-    padding:20px;
-  }
-
+margin-top:40px;
+text-align:center;
+color:#94a3b8;
 }
 
 </style>
@@ -288,58 +246,62 @@ footer{
 
 <div id="authScreen">
 
-  <div class="auth-box">
+<div class="auth-box">
 
-    <h1>Knowledge Hub 🚀</h1>
+<h1>Knowledge Hub 🚀</h1>
 
-    <p>Create account or login</p>
+<p>Create account or login</p>
 
-    <input type="email" id="email" placeholder="Email">
+<input type="email" id="email" placeholder="Email">
 
-    <input type="password" id="password" placeholder="Password">
+<input type="password" id="password" placeholder="Password">
 
-    <button onclick="login()">Login / Register</button>
-
-  </div>
-
-<div class="sidebar">
-  
-<div class="profile-card" onclick="openProfile()">
-
-  <div class="avatar" id="avatarPreview">👤</div>
-
-  <h3 id="profileName">Guest</h3>
-
-  <p>Writer & Learner</p>
-
-</div> 
-  <ul>
-
-    <li onclick="showHome()">🏠 Home</li>
-
-    <li onclick="showCategoryPosts()">📚 Categories</li>
-
-    <li onclick="showMyPosts()">📝 My Posts</li>
-
-  </ul>
+<button class="submit-btn" onclick="login()">
+Login / Register
+</button>
 
 </div>
 
-<div class="main">
+</div>
 
-<header>
+<div class="sidebar">
 
-<h1>Knowledge Hub</h1>
+<div class="logo">Knowledge Hub</div>
 
-<div class="top-buttons">
+<div class="profile-card" onclick="openProfile()">
 
-<button id="logoutBtn" onclick="logout()" style="display:none;">
+<div class="avatar" id="avatarPreview">
+👤
+</div>
+
+<h3 id="profileName">Guest</h3>
+
+<p>Writer & Learner</p>
+
+</div>
+
+<ul>
+
+<li onclick="showHome()">🏠 Home</li>
+
+<li onclick="showMyPosts()">📝 My Posts</li>
+
+<li onclick="showCategoryPosts()">📚 Categories</li>
+
+</ul>
+
+<button
+class="submit-btn"
+onclick="logout()"
+id="logoutBtn"
+style="width:100%; display:none;"
+>
 Logout
 </button>
 
 </div>
 
-</header>
+<div class="main">
 
 <section class="hero">
 
@@ -386,97 +348,63 @@ Publish Post
 </div>
 
 <footer>
-
 © 2026 Knowledge Hub
-
 </footer>
 
 </div>
 
+<div id="profileModal" style="
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+justify-content:center;
+align-items:center;
+z-index:99999;
+">
+
+<div style="
+width:400px;
+max-width:90%;
+background:#0f172a;
+padding:30px;
+border-radius:25px;
+">
+
+<h2 style="margin-bottom:20px;color:#60a5fa;">
+Edit Profile
+</h2>
+
+<input
+type="text"
+id="newUsername"
+placeholder="New username"
+>
+
+<input
+type="file"
+id="newAvatar"
+accept="image/*"
+>
+
+<button class="submit-btn" onclick="saveProfile()">
+Save
+</button>
+
+<button
+class="submit-btn"
+style="background:crimson;"
+onclick="closeProfile()"
+>
+Close
+</button>
+
+</div>
+
+</div>
+
 <script type="module">
-window.openProfile = function(){
 
-document.getElementById(
-"profileModal"
-).style.display = "flex";
-
-};
-
-
-
-window.closeProfile = function(){
-
-document.getElementById(
-"profileModal"
-).style.display = "none";
-
-};
-
-
-
-window.saveProfile = function(){
-
-const newUsername =
-document.getElementById(
-"newUsername"
-).value;
-
-const avatarInput =
-document.getElementById(
-"newAvatar"
-);
-
-if(newUsername){
-
-localStorage.setItem(
-"loggedInUser",
-newUsername
-);
-
-document.getElementById(
-"profileName"
-).innerText = newUsername;
-
-}
-
-if(avatarInput.files[0]){
-
-const imageURL =
-URL.createObjectURL(
-avatarInput.files[0]
-);
-
-localStorage.setItem(
-"profileAvatar",
-imageURL
-);
-
-document.getElementById(
-"avatarPreview"
-).innerHTML =
-`<img src="${imageURL}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
-
-}
-
-closeProfile();
-
-};
-
-
-
-const savedAvatar =
-localStorage.getItem(
-"profileAvatar"
-);
-
-if(savedAvatar){
-
-document.getElementById(
-"avatarPreview"
-).innerHTML =
-`<img src="${savedAvatar}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
-
-}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
@@ -514,11 +442,8 @@ const db = getFirestore(app);
 
 window.login = async function(){
 
-const email =
-document.getElementById("email").value;
-
-const password =
-document.getElementById("password").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
 
 if(!email || !password){
 
@@ -585,7 +510,7 @@ document.getElementById(
 
 document.getElementById(
 "logoutBtn"
-).style.display = "inline-block";
+).style.display = "block";
 
 }
 
@@ -593,9 +518,7 @@ window.logout = async function(){
 
 await signOut(auth);
 
-localStorage.removeItem(
-"loggedInUser"
-);
+localStorage.clear();
 
 location.reload();
 
@@ -619,16 +542,10 @@ let image = "";
 
 if(imageInput.files[0]){
 
-image = URL.createObjectURL(
+image =
+URL.createObjectURL(
 imageInput.files[0]
 );
-
-}
-
-if(!title || !content){
-
-alert("Fill all fields");
-return;
 
 }
 
@@ -636,6 +553,13 @@ const user =
 localStorage.getItem(
 "loggedInUser"
 );
+
+if(!title || !content){
+
+alert("Fill all fields");
+return;
+
+}
 
 await addDoc(
 collection(db,"posts"),
@@ -655,8 +579,6 @@ document.getElementById("content").value = "";
 renderPosts();
 
 };
-
-
 
 async function renderPosts(){
 
@@ -685,9 +607,7 @@ postDiv.innerHTML = `
 
 <h4>${post.title}</h4>
 
-<small>
-Posted by ${post.user}
-</small>
+<small>Posted by ${post.user}</small>
 
 <p>${post.content}</p>
 
@@ -721,8 +641,6 @@ ${post.category}
 
 `;
 
-
-
 postDiv.querySelector(".like-btn")
 .onclick = function(){
 
@@ -730,14 +648,12 @@ alert("Liked ❤️");
 
 };
 
-
-
 postDiv.querySelector(".edit-btn")
 .onclick = function(){
 
 const newText =
 prompt(
-"Edit your post:",
+"Edit your post",
 post.content
 );
 
@@ -750,16 +666,12 @@ newText;
 
 };
 
-
-
 postDiv.querySelector(".delete-btn")
 .onclick = function(){
 
 postDiv.remove();
 
 };
-
-
 
 postDiv.querySelector(".comment-btn")
 .onclick = function(){
@@ -776,15 +688,12 @@ div.classList.add("comment");
 
 div.innerText = comment;
 
-postDiv.querySelector(
-".comments"
-).appendChild(div);
+postDiv.querySelector(".comments")
+.appendChild(div);
 
 }
 
 };
-
-
 
 container.prepend(postDiv);
 
@@ -792,22 +701,17 @@ container.prepend(postDiv);
 
 }
 
-
-
 window.showHome = function(){
 
-const posts =
-document.querySelectorAll(".post");
-
-posts.forEach(post=>{
+document
+.querySelectorAll(".post")
+.forEach(post=>{
 
 post.style.display = "block";
 
 });
 
 };
-
-
 
 window.showMyPosts = function(){
 
@@ -816,10 +720,9 @@ localStorage.getItem(
 "loggedInUser"
 );
 
-const posts =
-document.querySelectorAll(".post");
-
-posts.forEach(post=>{
+document
+.querySelectorAll(".post")
+.forEach(post=>{
 
 const author =
 post.querySelector("small").innerText;
@@ -840,8 +743,6 @@ post.style.display = "none";
 
 };
 
-
-
 window.showCategoryPosts = function(){
 
 const chosen =
@@ -851,15 +752,13 @@ prompt(
 
 if(!chosen) return;
 
-const posts =
-document.querySelectorAll(".post");
-
-posts.forEach(post=>{
+document
+.querySelectorAll(".post")
+.forEach(post=>{
 
 const category =
-post.querySelector(
-".post-category"
-).innerText;
+post.querySelector(".post-category")
+.innerText;
 
 if(
 category.toLowerCase()
@@ -881,7 +780,69 @@ post.style.display = "none";
 
 };
 
+window.openProfile = function(){
 
+document.getElementById(
+"profileModal"
+).style.display = "flex";
+
+};
+
+window.closeProfile = function(){
+
+document.getElementById(
+"profileModal"
+).style.display = "none";
+
+};
+
+window.saveProfile = function(){
+
+const username =
+document.getElementById(
+"newUsername"
+).value;
+
+const avatarInput =
+document.getElementById(
+"newAvatar"
+);
+
+if(username){
+
+localStorage.setItem(
+"loggedInUser",
+username
+);
+
+document.getElementById(
+"profileName"
+).innerText = username;
+
+}
+
+if(avatarInput.files[0]){
+
+const imageURL =
+URL.createObjectURL(
+avatarInput.files[0]
+);
+
+localStorage.setItem(
+"profileAvatar",
+imageURL
+);
+
+document.getElementById(
+"avatarPreview"
+).innerHTML =
+`<img src="${imageURL}">`;
+
+}
+
+closeProfile();
+
+};
 
 const savedUser =
 localStorage.getItem(
@@ -900,58 +861,28 @@ document.getElementById(
 
 document.getElementById(
 "logoutBtn"
-).style.display = "inline-block";
+).style.display = "block";
 
 }
 
+const savedAvatar =
+localStorage.getItem(
+"profileAvatar"
+);
 
+if(savedAvatar){
+
+document.getElementById(
+"avatarPreview"
+).innerHTML =
+`<img src="${savedAvatar}">`;
+
+}
 
 renderPosts();
 
-</script> 
-<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:99999; justify-content:center; align-items:center;">
+</script>
 
-  <div style="
-    width:400px;
-    max-width:90%;
-    background:#0f172a;
-    padding:30px;
-    border-radius:25px;
-  ">
-
-    <h2 style="margin-bottom:20px; color:#60a5fa;">
-      Edit Profile
-    </h2>
-
-    <input
-      type="text"
-      id="newUsername"
-      placeholder="New username"
-    >
-
-    <input
-      type="file"
-      id="newAvatar"
-      accept="image/*"
-    >
-
-    <button
-      onclick="saveProfile()"
-      class="submit-btn"
-    >
-      Save Profile
-    </button>
-
-    <button
-      onclick="closeProfile()"
-      class="submit-btn"
-      style="background:crimson;"
-    >
-      Close
-    </button>
-
-  </div>
-
-</div>
 </body>
 </html>
+```
