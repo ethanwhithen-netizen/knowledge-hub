@@ -782,7 +782,36 @@ if(imageInput.files[0]){
     renderPosts();
 
   </script>
+<script type="module">
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAHV0yTKpShBtDL53KGWHai-FmJMOUPhZI",
+  authDomain: "knowledge-hub-8362f.firebaseapp.com",
+  projectId: "knowledge-hub-8362f",
+  storageBucket: "knowledge-hub-8362f.firebasestorage.app",
+  messagingSenderId: "1038799588057",
+  appId: "1:1038799588057:web:60d53f74e310a557854cc8",
+  measurementId: "G-8EFVY901GP"
+};
+
+const app = initializeApp(firebaseConfig);
+
+window.auth = getAuth(app);
+
+window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+window.signOut = signOut;
+
+</script>
 </body>
 </html>
 ```
