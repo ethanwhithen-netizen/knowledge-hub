@@ -443,6 +443,13 @@ document.getElementById("email").value;
 const password =
 document.getElementById("password").value;
 
+if(!email || !password){
+
+alert("Fill all fields");
+return;
+
+}
+
 try{
 
 const userCredential =
@@ -541,6 +548,13 @@ imageInput.files[0]
 
 }
 
+if(!title || !content){
+
+alert("Fill all fields");
+return;
+
+}
+
 const user =
 localStorage.getItem(
 "loggedInUser"
@@ -561,11 +575,11 @@ likes:0
 document.getElementById("title").value = "";
 document.getElementById("content").value = "";
 
-renderPosts();
+window.renderPosts();
 
 };
 
-async function renderPosts(){
+window.renderPosts = async function(){
 
 const container =
 document.getElementById(
@@ -628,6 +642,27 @@ ${post.category}
 
 `;
 
+postDiv.querySelector(".like-btn")
+.onclick = function(){
+
+alert("Likes system coming soon 🔥");
+
+};
+
+postDiv.querySelector(".edit-btn")
+.onclick = function(){
+
+alert("Edit system coming soon 🔥");
+
+};
+
+postDiv.querySelector(".delete-btn")
+.onclick = function(){
+
+alert("Delete system coming soon 🔥");
+
+};
+
 postDiv.querySelector(".comment-btn")
 .onclick = function(){
 
@@ -655,7 +690,7 @@ container.prepend(postDiv);
 
 });
 
-}
+};
 
 window.showHome = function(){
 
@@ -759,9 +794,9 @@ document.getElementById(
 
 }
 
-renderPosts();
+window.renderPosts();
 
-</script>
+</script> 
 
 </body>
 </html>
