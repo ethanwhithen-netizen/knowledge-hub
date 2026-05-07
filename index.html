@@ -575,11 +575,7 @@ likes:0
 document.getElementById("title").value = "";
 document.getElementById("content").value = "";
 
-window.renderPosts();
-
-};
-
-window.renderPosts = async function(){
+async function renderPosts(){
 
 const container =
 document.getElementById(
@@ -593,9 +589,9 @@ await getDocs(
 collection(db,"posts")
 );
 
-querySnapshot.forEach((doc)=>{
+querySnapshot.forEach((postData)=>{
 
-const post = doc.data();
+const post = postData.data();
 
 const postDiv =
 document.createElement("div");
@@ -642,29 +638,48 @@ ${post.category}
 
 `;
 
-postDiv.querySelector(".like-btn")
-.onclick = function(){
+const likeBtn =
+postDiv.querySelector(".like-btn");
 
-alert("Likes system coming soon 🔥");
+const editBtn =
+postDiv.querySelector(".edit-btn");
 
-};
+const deleteBtn =
+postDiv.querySelector(".delete-btn");
 
-postDiv.querySelector(".edit-btn")
-.onclick = function(){
+const commentBtn =
+postDiv.querySelector(".comment-btn");
 
-alert("Edit system coming soon 🔥");
+likeBtn.onclick = function(){
 
-};
-
-postDiv.querySelector(".delete-btn")
-.onclick = function(){
-
-alert("Delete system coming soon 🔥");
+alert("Liked ❤️");
 
 };
 
-postDiv.querySelector(".comment-btn")
-.onclick = function(){
+editBtn.onclick = function(){
+
+const newText =
+prompt(
+"Edit your post:",
+post.content
+);
+
+if(newText){
+
+postDiv.querySelector("p").innerText =
+newText;
+
+}
+
+};
+
+deleteBtn.onclick = function(){
+
+postDiv.remove();
+
+};
+
+commentBtn.onclick = function(){
 
 const comment =
 prompt("Write comment");
@@ -690,7 +705,7 @@ container.prepend(postDiv);
 
 });
 
-};
+}
 
 window.showHome = function(){
 
