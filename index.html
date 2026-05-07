@@ -489,12 +489,16 @@
     </div>
 
     <ul>
-      <li>🏠 Home</li>
-      <li onclick="showCategoryPosts()">📚 Categories</li>
-      <li onclick="showMyPosts()">📝 My Posts</li>
-      <li>❤️ Favorites</li>
-      <li>⚙️ Settings</li>
-    </ul>
+  <li onclick="showHome()">🏠 Home</li>
+
+  <li onclick="showCategoryPosts()">📚 Categories</li>
+
+  <li onclick="showMyPosts()">📝 My Posts</li>
+
+  <li>❤️ Favorites</li>
+
+  <li>⚙️ Settings</li>
+</ul> 
 
   </div>
 
@@ -585,7 +589,9 @@
 
     document.getElementById("logoutBtn").style.display = "inline-block";
 
-    localStorage.setItem("loggedInUser", user.email);
+    const username = user.email.split("@")[0];
+
+localStorage.setItem("loggedInUser", username);
 
   }
 
@@ -608,6 +614,8 @@
       document.getElementById("logoutBtn").style.display = "inline-block";
 
       const username = email.split("@")[0];
+
+const username = user.email.split("@")[0];
 
 localStorage.setItem("loggedInUser", username);
 
@@ -762,6 +770,75 @@ function showCategoryPosts(){
   });
 
 }
+  function showHome(){
+
+  const posts = document.querySelectorAll(".post");
+
+  posts.forEach(post => {
+
+    post.style.display = "block";
+
+  });
+
+}
+
+function showMyPosts(){
+
+  const currentUser =
+    localStorage.getItem("loggedInUser");
+
+  const posts = document.querySelectorAll(".post");
+
+  posts.forEach(post => {
+
+    const postUser =
+      post.querySelector("small").innerText;
+
+    if(postUser.includes(currentUser)){
+
+      post.style.display = "block";
+
+    } else {
+
+      post.style.display = "none";
+
+    }
+
+  });
+
+}
+
+function showCategoryPosts(){
+
+  const chosenCategory = prompt(
+    "Choose: Essay, Lesson, Blog, Tutorial, Story"
+  );
+
+  if(!chosenCategory) return;
+
+  const posts = document.querySelectorAll(".post");
+
+  posts.forEach(post => {
+
+    const category =
+      post.querySelector(".post-category").innerText;
+
+    if(
+      category.toLowerCase() ===
+      chosenCategory.toLowerCase()
+    ){
+
+      post.style.display = "block";
+
+    } else {
+
+      post.style.display = "none";
+
+    }
+
+  });
+
+} 
   renderPosts();
 
 }
