@@ -617,8 +617,7 @@ async function login(){
   document.querySelector(".profile-card h3").innerText = username;
 document.getElementById("logoutBtn").style.display = "inline-block";
 }
-    function logout(){
-
+    
  async function logout(){
 
   await signOut(auth);
@@ -783,7 +782,7 @@ if(imageInput.files[0]){
     renderPosts();
 
   </script>
-<script type="module"> Import the functions you need from the SDKs you needimport { initializeApp } import {
+<script type="module"> { initializeApp } import {
 
   getAuth,
   createUserWithEmailAndPassword,
