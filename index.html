@@ -302,22 +302,17 @@ footer{
 
   </div>
 
-</div>
-
 <div class="sidebar">
+  
+<div class="profile-card" onclick="openProfile()">
 
-  <div class="logo">Knowledge Hub</div>
+  <div class="avatar" id="avatarPreview">👤</div>
 
-  <div class="profile-card">
+  <h3 id="profileName">Guest</h3>
 
-    <div class="avatar">👤</div>
+  <p>Writer & Learner</p>
 
-    <h3 id="profileName">Guest</h3>
-
-    <p>Writer & Learner</p>
-
-  </div>
-
+</div> 
   <ul>
 
     <li onclick="showHome()">🏠 Home</li>
@@ -399,7 +394,89 @@ Publish Post
 </div>
 
 <script type="module">
+window.openProfile = function(){
 
+document.getElementById(
+"profileModal"
+).style.display = "flex";
+
+};
+
+
+
+window.closeProfile = function(){
+
+document.getElementById(
+"profileModal"
+).style.display = "none";
+
+};
+
+
+
+window.saveProfile = function(){
+
+const newUsername =
+document.getElementById(
+"newUsername"
+).value;
+
+const avatarInput =
+document.getElementById(
+"newAvatar"
+);
+
+if(newUsername){
+
+localStorage.setItem(
+"loggedInUser",
+newUsername
+);
+
+document.getElementById(
+"profileName"
+).innerText = newUsername;
+
+}
+
+if(avatarInput.files[0]){
+
+const imageURL =
+URL.createObjectURL(
+avatarInput.files[0]
+);
+
+localStorage.setItem(
+"profileAvatar",
+imageURL
+);
+
+document.getElementById(
+"avatarPreview"
+).innerHTML =
+`<img src="${imageURL}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+
+}
+
+closeProfile();
+
+};
+
+
+
+const savedAvatar =
+localStorage.getItem(
+"profileAvatar"
+);
+
+if(savedAvatar){
+
+document.getElementById(
+"avatarPreview"
+).innerHTML =
+`<img src="${savedAvatar}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+
+}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
@@ -832,6 +909,49 @@ document.getElementById(
 renderPosts();
 
 </script> 
+<div id="profileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:99999; justify-content:center; align-items:center;">
 
+  <div style="
+    width:400px;
+    max-width:90%;
+    background:#0f172a;
+    padding:30px;
+    border-radius:25px;
+  ">
+
+    <h2 style="margin-bottom:20px; color:#60a5fa;">
+      Edit Profile
+    </h2>
+
+    <input
+      type="text"
+      id="newUsername"
+      placeholder="New username"
+    >
+
+    <input
+      type="file"
+      id="newAvatar"
+      accept="image/*"
+    >
+
+    <button
+      onclick="saveProfile()"
+      class="submit-btn"
+    >
+      Save Profile
+    </button>
+
+    <button
+      onclick="closeProfile()"
+      class="submit-btn"
+      style="background:crimson;"
+    >
+      Close
+    </button>
+
+  </div>
+
+</div>
 </body>
 </html>
