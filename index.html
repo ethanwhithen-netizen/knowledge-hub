@@ -937,11 +937,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 window.auth = getAuth(app);
+
 window.db = getFirestore(app);
+
 window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
 window.signInWithEmailAndPassword = signInWithEmailAndPassword;
 window.signOut = signOut;
 
+window.collection = collection;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
 </script>
 </body>
 </html>
