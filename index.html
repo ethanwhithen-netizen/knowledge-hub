@@ -505,8 +505,9 @@
       <h1>Knowledge Hub</h1>
 
       <div class="top-buttons">
-        <button onclick="showMessage()">Login</button>
-        <button onclick="showMessage()">Create Account</button>
+       <button id="logoutBtn" onclick="logout()" style="display:none;">
+  Logout
+</button>
       </div>
     </header>
 
@@ -574,6 +575,13 @@ function login(){
   document.getElementById("authScreen").style.display = "none";
 
   document.querySelector(".profile-card h3").innerText = username;
+document.getElementById("logoutBtn").style.display = "inline-block";
+}
+    function logout(){
+
+  localStorage.removeItem("loggedInUser");
+
+  location.reload();
 
 }
     function showMessage(){
@@ -637,7 +645,7 @@ if(savedUser){
   document.getElementById("authScreen").style.display = "none";
 
   document.querySelector(".profile-card h3").innerText = savedUser;
-
+document.getElementById("logoutBtn").style.display = "inline-block";
 }
         };
 
