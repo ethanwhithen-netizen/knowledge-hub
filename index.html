@@ -835,7 +835,16 @@ import {
   signInWithEmailAndPassword,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {
 
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
+
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAHV0yTKpShBtDL53KGWHai-FmJMOUPhZI",
   authDomain: "knowledge-hub-8362f.firebaseapp.com",
@@ -849,7 +858,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 window.auth = getAuth(app);
-
+window.db = getFirestore(app);
 window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
 window.signInWithEmailAndPassword = signInWithEmailAndPassword;
 window.signOut = signOut;
