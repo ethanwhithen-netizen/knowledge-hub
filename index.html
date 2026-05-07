@@ -689,7 +689,78 @@ if(savedUser){
   document.getElementById("logoutBtn").style.display = "inline-block";
 
 }
+async function createPost(){
 
+  const title = document.getElementById("title").value;
+
+  const content = document.getElementById("content").value;
+
+  const imageInput = document.getElementById("image");
+
+  let image = "";
+
+  if(imageInput.files[0]){
+
+    image = URL.createObjectURL(imageInput.files[0]);
+
+  }
+
+  const category = document.getElementById("category").value;
+
+  if(title === "" || content === ""){
+
+    alert("Please fill in all fields.");
+
+    return;
+
+  }
+
+  const user = localStorage.getItem("loggedInUser");
+
+  await window.addDoc(window.collection(window.db, "posts"), {
+
+    title,
+    content,
+    image,
+    category,
+    likes:0,
+    user
+
+  });
+
+  document.getElementById("title").value = "";
+
+  document.getElementById("content").value = "";
+
+  renderPosts();
+
+}
+
+function showMyPosts(){
+
+  const currentUser = localStorage.getItem("loggedInUser");
+
+  const posts = document.querySelectorAll(".post");
+
+  posts.forEach(post => {
+
+    const author = post.querySelector("small").innerText;
+
+    if(author.includes(currentUser)){
+
+      post.style.display = "block";
+
+    } else {
+
+      post.style.display = "none";
+
+    }
+
+  });
+
+}
+
+const savedUser = localStorage.getItem("loggedInUser");
 renderPosts();
 
 </script>
