@@ -446,7 +446,7 @@
 
       <textarea id="content" placeholder="Write something amazing..."></textarea>
 
-      <input type="text" id="image" placeholder="Paste image URL (optional)...">
+      <input type="file" id="image" accept="image/*">
 
       <select id="category">
         <option>Essay</option>
@@ -586,7 +586,15 @@
 
       const title = document.getElementById("title").value;
       const content = document.getElementById("content").value;
-      const image = document.getElementById("image").value;
+      const imageInput = document.getElementById("image");
+
+let image = "";
+
+if(imageInput.files[0]){
+
+  image = URL.createObjectURL(imageInput.files[0]);
+
+}
       const category = document.getElementById("category").value;
 
       if(title === "" || content === ""){
@@ -610,8 +618,7 @@
 
       document.getElementById("title").value = "";
       document.getElementById("content").value = "";
-      document.getElementById("image").value = "";
-
+     
     }
 
     renderPosts();
