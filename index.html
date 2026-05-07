@@ -491,7 +491,7 @@
     <ul>
       <li>🏠 Home</li>
       <li>📚 Categories</li>
-      <li>📝 My Posts</li>
+      <li onclick="showMyPosts()">📝 My Posts</li>
       <li>❤️ Favorites</li>
       <li>⚙️ Settings</li>
     </ul>
@@ -643,7 +643,41 @@ function getPosts(){
 
 }
 
-function renderPosts(){
+async function renderPosts(){
+
+  const container = document.getElementById("postsContainer");
+
+  container.innerHTML = "";
+
+  const querySnapshot = await getDocs(collection(window.db, "posts"));
+
+  querySnapshot.forEach((docItem)=>{
+
+    const post = docItem.data();
+
+    const postDiv = document.createElement("div");
+
+    postDiv.classList.add("post");
+
+    postDiv.innerHTML = `
+
+      <h4>${post.title}</h4>
+
+      <small>Posted by ${post.user}</small>
+
+      <p>${post.content}</p>
+
+      ${post.image ? `<img src="${post.image}" alt="Post Image">` : ""}
+
+      <div class="post-category">${post.category}</div>
+
+    `;
+
+    container.prepend(postDiv);
+
+  });
+
+}
 
   const container = document.getElementById("postsContainer");
 
@@ -753,7 +787,52 @@ function renderPosts(){
 
 }
 
-function createPost(){
+async function createPost(){
+
+  const title = document.getElementById("title").value;
+
+  const content = document.getElementById("content").value;
+
+  const imageInput = document.getElementById("image");
+
+  let image = "";
+
+  if(imageInput.files[0]){
+
+    image = URL.createObjectURL(imageInput.files[0]);
+
+  }
+
+  const category = document.getElementById("category").value;
+
+  if(title === "" || content === ""){
+
+    alert("Please fill in all fields.");
+
+    return;
+
+  }
+
+  const user = localStorage.getItem("loggedInUser");
+
+  await addDoc(collection(window.db, "posts"), {
+
+    title,
+    content,
+    image,
+    category,
+    likes:0,
+    user
+
+  });
+
+  document.getElementById("title").value = "";
+
+  document.getElementById("content").value = "";
+
+  renderPosts();
+
+}
 
   const title = document.getElementById("title").value;
 
