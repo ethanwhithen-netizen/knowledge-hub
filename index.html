@@ -473,9 +473,8 @@
     <input type="text" id="username" placeholder="Username">
 
     <input type="password" id="password" placeholder="Password">
-
-    <button onclick="login()">Login / Create Account</button>
-
+    
+  
   </div>
 
 </div>
@@ -612,8 +611,6 @@ async function login(){
   await window.signOut(window.auth);
 
   location.reload();
-
-}
 
 }
     function showMessage(){
@@ -790,7 +787,7 @@ const firebaseConfig = {
   messagingSenderId: "1038799588057",
   appId: "1:1038799588057:web:60d53f74e310a557854cc8",
   measurementId: "G-8EFVY901GP"
-};
+} 
 
 const app = initializeApp(firebaseConfig);
 
