@@ -575,6 +575,12 @@ likes:0
 document.getElementById("title").value = "";
 document.getElementById("content").value = "";
 
+renderPosts();
+
+};
+
+
+
 async function renderPosts(){
 
 const container =
@@ -638,25 +644,19 @@ ${post.category}
 
 `;
 
-const likeBtn =
-postDiv.querySelector(".like-btn");
 
-const editBtn =
-postDiv.querySelector(".edit-btn");
 
-const deleteBtn =
-postDiv.querySelector(".delete-btn");
-
-const commentBtn =
-postDiv.querySelector(".comment-btn");
-
-likeBtn.onclick = function(){
+postDiv.querySelector(".like-btn")
+.onclick = function(){
 
 alert("Liked ❤️");
 
 };
 
-editBtn.onclick = function(){
+
+
+postDiv.querySelector(".edit-btn")
+.onclick = function(){
 
 const newText =
 prompt(
@@ -673,13 +673,19 @@ newText;
 
 };
 
-deleteBtn.onclick = function(){
+
+
+postDiv.querySelector(".delete-btn")
+.onclick = function(){
 
 postDiv.remove();
 
 };
 
-commentBtn.onclick = function(){
+
+
+postDiv.querySelector(".comment-btn")
+.onclick = function(){
 
 const comment =
 prompt("Write comment");
@@ -701,11 +707,15 @@ postDiv.querySelector(
 
 };
 
+
+
 container.prepend(postDiv);
 
 });
 
 }
+
+
 
 window.showHome = function(){
 
@@ -719,6 +729,8 @@ post.style.display = "block";
 });
 
 };
+
+
 
 window.showMyPosts = function(){
 
@@ -751,10 +763,14 @@ post.style.display = "none";
 
 };
 
+
+
 window.showCategoryPosts = function(){
 
 const chosen =
-prompt("Essay, Lesson, Blog, Tutorial, Story");
+prompt(
+"Essay, Lesson, Blog, Tutorial, Story"
+);
 
 if(!chosen) return;
 
@@ -788,6 +804,8 @@ post.style.display = "none";
 
 };
 
+
+
 const savedUser =
 localStorage.getItem(
 "loggedInUser"
@@ -809,7 +827,9 @@ document.getElementById(
 
 }
 
-window.renderPosts();
+
+
+renderPosts();
 
 </script> 
 
