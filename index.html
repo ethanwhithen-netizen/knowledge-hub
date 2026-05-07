@@ -895,26 +895,7 @@ closeProfile();
 
 };
 
-const savedUser =
-localStorage.getItem(
-"loggedInUser"
-);
 
-if(savedUser){
-
-document.getElementById(
-"profileName"
-).innerText = savedUser;
-
-document.getElementById(
-"authScreen"
-).style.display = "none";
-
-document.getElementById(
-"logoutBtn"
-).style.display = "block";
-
-}
 
 const savedAvatar =
 localStorage.getItem(
