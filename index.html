@@ -473,7 +473,7 @@
     <input type="text" id="username" placeholder="Username">
 
     <input type="password" id="password" placeholder="Password">
-    
+    <button onclick="login()">Login / Create Account</button>
   
   </div>
 
@@ -557,7 +557,7 @@
   </div>
 
   <script>
-async function login(){
+    async function login(){
 
   const email = document.getElementById("username").value;
   const password = document.getElementById("password").value;
@@ -571,7 +571,11 @@ async function login(){
 
   try{
 
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await window.createUserWithEmailAndPassword(
+      window.auth,
+      email,
+      password
+    );
 
     const user = userCredential.user;
 
@@ -581,13 +585,19 @@ async function login(){
 
     document.getElementById("logoutBtn").style.display = "inline-block";
 
+    localStorage.setItem("loggedInUser", user.email);
+
   }
 
   catch(error){
 
     try{
 
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await window.signInWithEmailAndPassword(
+        window.auth,
+        email,
+        password
+      );
 
       const user = userCredential.user;
 
@@ -597,6 +607,8 @@ async function login(){
 
       document.getElementById("logoutBtn").style.display = "inline-block";
 
+      localStorage.setItem("loggedInUser", user.email);
+
     }
 
     catch(error){
@@ -605,160 +617,205 @@ async function login(){
 
     }
 
+  }
 
- async function logout(){
+}
+
+async function logout(){
 
   await window.signOut(window.auth);
+
+  localStorage.removeItem("loggedInUser");
 
   location.reload();
 
 }
-    function showMessage(){
-      alert("Authentication system can be connected later.");
-    }
 
-    function savePosts(posts){
-      localStorage.setItem("knowledgePosts", JSON.stringify(posts));
-    }
+function savePosts(posts){
 
-    function getPosts(){
-      return JSON.parse(localStorage.getItem("knowledgePosts")) || [];
-    }
+  localStorage.setItem("knowledgePosts", JSON.stringify(posts));
 
-    function renderPosts(){
+}
 
-      const container = document.getElementById("postsContainer");
-      container.innerHTML = "";
+function getPosts(){
 
-      const posts = getPosts();
+  return JSON.parse(localStorage.getItem("knowledgePosts")) || [];
 
-      posts.reverse().forEach((post,index)=>{
+}
 
-        const postDiv = document.createElement("div");
-        postDiv.classList.add("post");
+function renderPosts(){
 
-        postDiv.innerHTML = `
+  const container = document.getElementById("postsContainer");
 
-          <h4>${post.title}</h4>
+  container.innerHTML = "";
 
-          <small>Posted by User</small>
+  const posts = getPosts();
 
-          <p>${post.content}</p>
+  posts.reverse().forEach((post,index)=>{
 
-          ${post.image ? `<img src="${post.image}" alt="Post Image">` : ""}
+    const postDiv = document.createElement("div");
 
-          <div class="post-category">${post.category}</div>
+    postDiv.classList.add("post");
 
-          <div class="actions">
-            <button class="like-btn">❤️ ${post.likes}</button>
-            <button class="edit-btn">✏️ Edit</button>
-            <button class="delete-btn">🗑️ Delete</button>
-            <button class="comment-btn">💬 Comment</button>
-          </div>
+    postDiv.innerHTML = `
 
-          <div class="comments"></div>
+      <h4>${post.title}</h4>
 
-        `;
+      <small>Posted by User</small>
 
-        /* LIKE */
+      <p>${post.content}</p>
 
-        postDiv.querySelector(".like-btn").onclick = function(){
-          post.likes++;
-          posts[posts.length - 1 - index] = post;
-          savePosts(posts);
-          renderPosts();
-          const savedUser = localStorage.getItem("loggedInUser");
+      ${post.image ? `<img src="${post.image}" alt="Post Image">` : ""}
+
+      <div class="post-category">${post.category}</div>
+
+      <div class="actions">
+
+        <button class="like-btn">❤️ ${post.likes}</button>
+
+        <button class="edit-btn">✏️ Edit</button>
+
+        <button class="delete-btn">🗑️ Delete</button>
+
+        <button class="comment-btn">💬 Comment</button>
+
+      </div>
+
+      <div class="comments"></div>
+
+    `;
+
+    postDiv.querySelector(".like-btn").onclick = function(){
+
+      post.likes++;
+
+      posts[posts.length - 1 - index] = post;
+
+      savePosts(posts);
+
+      renderPosts();
+
+    };
+
+    postDiv.querySelector(".delete-btn").onclick = function(){
+
+      posts.splice(posts.length - 1 - index,1);
+
+      savePosts(posts);
+
+      renderPosts();
+
+    };
+
+    postDiv.querySelector(".edit-btn").onclick = function(){
+
+      const newTitle = prompt("Edit title:", post.title);
+
+      const newContent = prompt("Edit content:", post.content);
+
+      if(newTitle && newContent){
+
+        post.title = newTitle;
+
+        post.content = newContent;
+
+        posts[posts.length - 1 - index] = post;
+
+        savePosts(posts);
+
+        renderPosts();
+
+      }
+
+    };
+
+    postDiv.querySelector(".comment-btn").onclick = function(){
+
+      const comment = prompt("Write a comment:");
+
+      if(comment){
+
+        const commentDiv = document.createElement("div");
+
+        commentDiv.classList.add("comment");
+
+        commentDiv.innerText = comment;
+
+        postDiv.querySelector(".comments").appendChild(commentDiv);
+
+      }
+
+    };
+
+    container.appendChild(postDiv);
+
+  });
+
+}
+
+function createPost(){
+
+  const title = document.getElementById("title").value;
+
+  const content = document.getElementById("content").value;
+
+  const imageInput = document.getElementById("image");
+
+  let image = "";
+
+  if(imageInput.files[0]){
+
+    image = URL.createObjectURL(imageInput.files[0]);
+
+  }
+
+  const category = document.getElementById("category").value;
+
+  if(title === "" || content === ""){
+
+    alert("Please fill in all fields.");
+
+    return;
+
+  }
+
+  const posts = getPosts();
+
+  posts.push({
+
+    title,
+    content,
+    image,
+    category,
+    likes:0
+
+  });
+
+  savePosts(posts);
+
+  renderPosts();
+
+  document.getElementById("title").value = "";
+
+  document.getElementById("content").value = "";
+
+}
+
+const savedUser = localStorage.getItem("loggedInUser");
 
 if(savedUser){
 
   document.getElementById("authScreen").style.display = "none";
 
   document.querySelector(".profile-card h3").innerText = savedUser;
-document.getElementById("logoutBtn").style.display = "inline-block";
-}
-        };
 
-        /* DELETE */
-
-        postDiv.querySelector(".delete-btn").onclick = function(){
-          posts.splice(posts.length - 1 - index,1);
-          savePosts(posts);
-          renderPosts();
-        };
-
-        /* EDIT */
-
-        postDiv.querySelector(".edit-btn").onclick = function(){
-
-          const newTitle = prompt("Edit title:", post.title);
-          const newContent = prompt("Edit content:", post.content);
-
-          if(newTitle && newContent){
-            post.title = newTitle;
-            post.content = newContent;
-            posts[posts.length - 1 - index] = post;
-            savePosts(posts);
-            renderPosts();
-          }
-
-        };
-
-        /* COMMENTS */
-
-        postDiv.querySelector(".comment-btn").onclick = function(){
-
-          const comment = prompt("Write a comment:");
-
-          if(comment){
-
-            const commentDiv = document.createElement("div");
-            commentDiv.classList.add("comment");
-            commentDiv.innerText = comment;
-
-            postDiv.querySelector(".comments").appendChild(commentDiv);
-          }
-
-        };
-
-        container.appendChild(postDiv);
-
-      });
-
-    }
-
-    function createPost(){
-
-      const title = document.getElementById("title").value;
-      const content = document.getElementById("content").value;
-      const imageInput = document.getElementById("image");
-
-let image = "";
-
-if(imageInput.files[0]){
-
-  image = URL.createObjectURL(imageInput.files[0]);
+  document.getElementById("logoutBtn").style.display = "inline-block";
 
 }
-      const category = document.getElementById("category").value;
 
-      if(title === "" || content === ""){
-        alert("Please fill in all fields.");
-        return;
-      }
+renderPosts();
 
-      const posts = getPosts();
-
-      posts.push({
-        title,
-        content,
-        image,
-        category,
-        likes:0
-      });
-
-      savePosts(posts);
-
-      renderPosts();
+</script>
 
       document.getElementById("title").value = "";
       document.getElementById("content").value = "";
@@ -787,7 +844,7 @@ const firebaseConfig = {
   messagingSenderId: "1038799588057",
   appId: "1:1038799588057:web:60d53f74e310a557854cc8",
   measurementId: "G-8EFVY901GP"
-} 
+};
 
 const app = initializeApp(firebaseConfig);
 
