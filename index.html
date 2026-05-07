@@ -490,7 +490,7 @@
 
     <ul>
       <li>🏠 Home</li>
-      <li>📚 Categories</li>
+      <li onclick="showCategoryPosts()">📚 Categories</li>
       <li onclick="showMyPosts()">📝 My Posts</li>
       <li>❤️ Favorites</li>
       <li>⚙️ Settings</li>
@@ -607,7 +607,9 @@
 
       document.getElementById("logoutBtn").style.display = "inline-block";
 
-      localStorage.setItem("loggedInUser", user.email);
+      const username = email.split("@")[0];
+
+localStorage.setItem("loggedInUser", username);
 
     }
 
@@ -731,7 +733,35 @@ async function createPost(){
   document.getElementById("title").value = "";
 
   document.getElementById("content").value = "";
+function showCategoryPosts(){
 
+  const chosenCategory = prompt(
+    "Choose category: Essay, Lesson, Blog, Tutorial, Story"
+  );
+
+  const posts = document.querySelectorAll(".post");
+
+  posts.forEach(post => {
+
+    const category =
+      post.querySelector(".post-category").innerText;
+
+    if(
+      category.toLowerCase() ===
+      chosenCategory.toLowerCase()
+    ){
+
+      post.style.display = "block";
+
+    } else {
+
+      post.style.display = "none";
+
+    }
+
+  });
+
+}
   renderPosts();
 
 }
