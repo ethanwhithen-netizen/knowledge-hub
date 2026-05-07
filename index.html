@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Knowledge Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Hub</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
+<style>
 
-    body{
-      background:#020617;
-      color:white;
-      min-height:100vh;
-      display:flex;
-    }
-/* AUTH SCREEN */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#020617;
+  color:white;
+  min-height:100vh;
+  display:flex;
+}
 
 #authScreen{
-
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  inset:0;
   background:#020617;
   display:flex;
   justify-content:center;
   align-items:center;
   z-index:9999;
-
 }
 
 .auth-box{
-
   width:400px;
   max-width:90%;
   background:#0f172a;
@@ -50,871 +44,718 @@
   border-radius:30px;
   border:1px solid rgba(255,255,255,0.08);
   text-align:center;
-  animation:fadeIn 1s ease;
-
 }
 
 .auth-box h1{
-
-  margin-bottom:15px;
   color:#60a5fa;
-
+  margin-bottom:15px;
 }
 
 .auth-box p{
-
   color:#94a3b8;
-  margin-bottom:25px;
-
+  margin-bottom:20px;
 }
 
-.auth-box button{
-
+.auth-box input{
   width:100%;
-  margin-top:20px;
+  margin-top:15px;
+}
+
+.sidebar{
+  width:270px;
+  background:#0f172a;
+  padding:30px 20px;
+  position:fixed;
+  height:100%;
+  overflow:auto;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+  font-size:2rem;
+  font-weight:700;
+  color:#60a5fa;
+  margin-bottom:35px;
+}
+
+.profile-card{
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  border-radius:25px;
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#2563eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:2rem;
+  margin-bottom:15px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  padding:15px;
+  margin-bottom:12px;
+  border-radius:16px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.03);
+  transition:0.3s;
+}
+
+.sidebar li:hover{
+  background:rgba(255,255,255,0.08);
+}
+
+.main{
+  margin-left:270px;
+  width:100%;
+  padding:40px;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:35px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#111827,#1e293b);
+  padding:50px;
+  border-radius:30px;
+  margin-bottom:30px;
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.card{
+  background:#0f172a;
+  padding:30px;
+  border-radius:28px;
+  margin-bottom:30px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
   padding:15px;
   border:none;
   border-radius:15px;
+  background:#1e293b;
+  color:white;
+  margin-top:15px;
+}
+
+textarea{
+  min-height:180px;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+}
+
+.submit-btn,
+.top-buttons button,
+.auth-box button{
   background:#2563eb;
   color:white;
-  cursor:pointer;
-  transition:0.3s;
-  font-size:1rem;
+  padding:14px 20px;
+  border-radius:15px;
+  margin-top:18px;
+}
+
+.posts{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:25px;
+}
+
+.post{
+  background:#111827;
+  padding:25px;
+  border-radius:25px;
+}
+
+.post h4{
+  color:#60a5fa;
+  margin-bottom:10px;
+}
+
+.post p{
+  margin-top:15px;
+  line-height:1.7;
+}
+
+.post img{
+  width:100%;
+  border-radius:18px;
+  margin-top:15px;
+}
+
+.post-category{
+  display:inline-block;
+  margin-top:15px;
+  background:#1d4ed8;
+  padding:7px 14px;
+  border-radius:30px;
+  font-size:0.85rem;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.actions button{
+  color:white;
+  padding:10px 15px;
+  border-radius:12px;
+}
+
+.like-btn{
+  background:#db2777;
+}
+
+.edit-btn{
+  background:#2563eb;
+}
+
+.delete-btn{
+  background:crimson;
+}
+
+.comment-btn{
+  background:#059669;
+}
+
+.comments{
+  margin-top:15px;
+}
+
+.comment{
+  background:rgba(255,255,255,0.05);
+  padding:10px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+footer{
+  margin-top:40px;
+  text-align:center;
+  color:#94a3b8;
+}
+
+@media(max-width:900px){
+
+  body{
+    display:block;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    padding:20px;
+  }
 
 }
 
-.auth-box button:hover{
-
-  background:#3b82f6;
-  transform:translateY(-3px);
-
-}
-    /* SIDEBAR */
-
-    .sidebar{
-      width:270px;
-      background:#0f172a;
-      border-right:1px solid rgba(255,255,255,0.08);
-      padding:30px 20px;
-      position:fixed;
-      top:0;
-      left:0;
-      height:100%;
-      overflow:auto;
-    }
-
-    .logo{
-      font-size:2rem;
-      font-weight:700;
-      color:#60a5fa;
-      margin-bottom:35px;
-    }
-
-    .profile-card{
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.08);
-      padding:20px;
-      border-radius:25px;
-      text-align:center;
-      margin-bottom:35px;
-      transition:0.3s;
-    }
-
-    .profile-card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 0 25px rgba(59,130,246,0.25);
-    }
-
-    .avatar{
-      width:85px;
-      height:85px;
-      border-radius:50%;
-      background:#2563eb;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin:auto;
-      font-size:2rem;
-      margin-bottom:15px;
-    }
-
-    .profile-card p{
-      color:#94a3b8;
-      margin-top:5px;
-      font-size:0.95rem;
-    }
-
-    .sidebar ul{
-      list-style:none;
-    }
-
-    .sidebar li{
-      padding:15px;
-      margin-bottom:12px;
-      border-radius:16px;
-      transition:0.3s;
-      cursor:pointer;
-      background:rgba(255,255,255,0.02);
-    }
-
-    .sidebar li:hover{
-      background:rgba(255,255,255,0.08);
-      transform:translateX(5px);
-    }
-
-    /* MAIN */
-
-    .main{
-      margin-left:270px;
-      width:100%;
-      padding:40px;
-    }
-
-    header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:40px;
-    }
-
-    header h1{
-      font-size:2.6rem;
-    }
-
-    .top-buttons button{
-      padding:12px 18px;
-      border:none;
-      border-radius:15px;
-      cursor:pointer;
-      margin-left:10px;
-      background:#2563eb;
-      color:white;
-      transition:0.3s;
-      box-shadow:0 0 20px rgba(37,99,235,0.35);
-    }
-
-    .top-buttons button:hover{
-      transform:translateY(-3px);
-      background:#3b82f6;
-    }
-
-    /* HERO */
-
-    .hero{
-      background:linear-gradient(135deg,#111827,#1e293b);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:35px;
-      padding:60px;
-      margin-bottom:35px;
-      animation:fadeIn 1s ease;
-    }
-
-    .hero h2{
-      font-size:3rem;
-      margin-bottom:20px;
-    }
-
-    .hero p{
-      color:#cbd5e1;
-      line-height:1.8;
-      max-width:700px;
-    }
-
-    /* CARDS */
-
-    .card{
-      background:#0f172a;
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:28px;
-      padding:30px;
-      margin-bottom:30px;
-      animation:fadeUp 0.8s ease;
-    }
-
-    .card h3{
-      color:#93c5fd;
-      margin-bottom:20px;
-      font-size:1.5rem;
-    }
-
-    /* INPUTS */
-
-    input,
-    textarea,
-    select{
-      width:100%;
-      background:#1e293b;
-      color:white;
-      border:none;
-      border-radius:16px;
-      padding:16px;
-      margin-top:14px;
-      outline:none;
-      transition:0.3s;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus{
-      box-shadow:0 0 20px rgba(59,130,246,0.35);
-    }
-
-    textarea{
-      min-height:180px;
-      resize:vertical;
-    }
-
-    .submit-btn{
-      margin-top:18px;
-      padding:14px 22px;
-      border:none;
-      border-radius:16px;
-      background:#2563eb;
-      color:white;
-      cursor:pointer;
-      transition:0.3s;
-      font-size:1rem;
-      box-shadow:0 0 20px rgba(37,99,235,0.35);
-    }
-
-    .submit-btn:hover{
-      transform:translateY(-3px);
-      background:#3b82f6;
-    }
-
-    /* POSTS */
-
-    .posts{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:25px;
-    }
-
-    .post{
-      background:#111827;
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:25px;
-      padding:25px;
-      transition:0.3s;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .post:hover{
-      transform:translateY(-8px);
-      box-shadow:0 0 35px rgba(59,130,246,0.2);
-    }
-
-    .post img{
-      width:100%;
-      border-radius:18px;
-      margin-top:15px;
-      margin-bottom:15px;
-    }
-
-    .post h4{
-      font-size:1.5rem;
-      color:#60a5fa;
-      margin-bottom:10px;
-    }
-
-    .post small{
-      color:#94a3b8;
-    }
-
-    .post p{
-      line-height:1.8;
-      margin-top:15px;
-      color:#e2e8f0;
-    }
-
-    .post-category{
-      display:inline-block;
-      margin-top:15px;
-      background:#1d4ed8;
-      padding:7px 14px;
-      border-radius:30px;
-      font-size:0.85rem;
-    }
-
-    /* ACTION BUTTONS */
-
-    .actions{
-      margin-top:20px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .actions button{
-      border:none;
-      border-radius:12px;
-      padding:10px 15px;
-      cursor:pointer;
-      transition:0.3s;
-      color:white;
-    }
-
-    .like-btn{
-      background:#db2777;
-    }
-
-    .edit-btn{
-      background:#2563eb;
-    }
-
-    .delete-btn{
-      background:crimson;
-    }
-
-    .comment-btn{
-      background:#059669;
-    }
-
-    .actions button:hover{
-      transform:scale(1.06);
-    }
-
-    /* COMMENTS */
-
-    .comments{
-      margin-top:20px;
-      background:rgba(255,255,255,0.03);
-      padding:15px;
-      border-radius:15px;
-    }
-
-    .comment{
-      margin-top:10px;
-      padding:10px;
-      background:rgba(255,255,255,0.05);
-      border-radius:12px;
-    }
-
-    /* FOOTER */
-
-    footer{
-      margin-top:40px;
-      text-align:center;
-      color:#94a3b8;
-    }
-
-    /* ANIMATIONS */
-
-    @keyframes fadeIn{
-      from{
-        opacity:0;
-        transform:translateY(20px);
-      }
-
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    @keyframes fadeUp{
-      from{
-        opacity:0;
-        transform:translateY(35px);
-      }
-
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    /* MOBILE */
-
-    @media(max-width:900px){
-
-      body{
-        display:block;
-      }
-
-      .sidebar{
-        position:relative;
-        width:100%;
-        height:auto;
-      }
-
-      .main{
-        margin-left:0;
-        padding:20px;
-      }
-
-      header{
-        flex-direction:column;
-        gap:20px;
-      }
-
-      .hero{
-        padding:35px;
-      }
-
-      .hero h2{
-        font-size:2.2rem;
-      }
-
-    }
-
-  </style>
+</style>
 </head>
+
 <body>
+
 <div id="authScreen">
 
   <div class="auth-box">
 
     <h1>Knowledge Hub 🚀</h1>
 
-    <p>Create an account or login to continue</p>
+    <p>Create account or login</p>
 
-    <input type="text" id="username" placeholder="Username">
+    <input type="email" id="email" placeholder="Email">
 
     <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login / Create Account</button>
-  
+
+    <button onclick="login()">Login / Register</button>
+
   </div>
 
 </div>
-  <div class="sidebar">
 
-    <div class="logo">Knowledge Hub</div>
+<div class="sidebar">
 
-    <div class="profile-card">
-      <div class="avatar">👤</div>
-      <h3>Guest User</h3>
-      <p>Writer & Learner</p>
-    </div>
+  <div class="logo">Knowledge Hub</div>
 
-    <ul>
-  <li onclick="showHome()">🏠 Home</li>
+  <div class="profile-card">
 
-  <li onclick="showCategoryPosts()">📚 Categories</li>
+    <div class="avatar">👤</div>
 
-  <li onclick="showMyPosts()">📝 My Posts</li>
+    <h3 id="profileName">Guest</h3>
 
-  <li>❤️ Favorites</li>
-
-  <li>⚙️ Settings</li>
-</ul> 
+    <p>Writer & Learner</p>
 
   </div>
 
-  <div class="main">
+  <ul>
 
-    <header>
-      <h1>Knowledge Hub</h1>
+    <li onclick="showHome()">🏠 Home</li>
 
-      <div class="top-buttons">
-       <button id="logoutBtn" onclick="logout()" style="display:none;">
-  Logout
+    <li onclick="showCategoryPosts()">📚 Categories</li>
+
+    <li onclick="showMyPosts()">📝 My Posts</li>
+
+  </ul>
+
+</div>
+
+<div class="main">
+
+<header>
+
+<h1>Knowledge Hub</h1>
+
+<div class="top-buttons">
+
+<button id="logoutBtn" onclick="logout()" style="display:none;">
+Logout
 </button>
-      </div>
-    </header>
 
-    <section class="hero">
-      <h2>Share Knowledge With The World 🚀</h2>
+</div>
 
-      <p>
-        Publish lessons, blogs, tutorials, essays, and creative ideas in a beautiful modern platform.
-      </p>
-    </section>
+</header>
 
-    <div class="card">
+<section class="hero">
 
-      <h3>Create a New Post</h3>
+<h2>Share Knowledge With The World 🚀</h2>
 
-      <input type="text" id="title" placeholder="Post title...">
+<p>
+Publish blogs, essays, tutorials and ideas beautifully.
+</p>
 
-      <textarea id="content" placeholder="Write something amazing..."></textarea>
+</section>
 
-      <input type="file" id="image" accept="image/*">
+<div class="card">
 
-      <select id="category">
-        <option>Essay</option>
-        <option>Lesson</option>
-        <option>Blog</option>
-        <option>Tutorial</option>
-        <option>Story</option>
-      </select>
+<h3>Create New Post</h3>
 
-      <button class="submit-btn" onclick="createPost()">
-        Publish Post
-      </button>
+<input type="text" id="title" placeholder="Post title">
 
-    </div>
+<textarea id="content" placeholder="Write something amazing"></textarea>
 
-    <div class="card">
+<input type="file" id="image" accept="image/*">
 
-      <h3>Community Posts</h3>
+<select id="category">
 
-      <div class="posts" id="postsContainer"></div>
+<option>Essay</option>
+<option>Lesson</option>
+<option>Blog</option>
+<option>Tutorial</option>
+<option>Story</option>
 
-    </div>
+</select>
 
-    <footer>
-      © 2026 Knowledge Hub — Modern Community Platform
-    </footer>
+<button class="submit-btn" onclick="createPost()">
+Publish Post
+</button>
 
-  </div>
+</div>
 
-  <script>
+<div class="card">
 
-async function login(){
+<h3>Community Posts</h3>
 
-  const email =
-    document.getElementById("username").value;
+<div class="posts" id="postsContainer"></div>
 
-  const password =
-    document.getElementById("password").value;
+</div>
 
-  if(email === "" || password === ""){
+<footer>
 
-    alert("Please fill in all fields.");
-    return;
+© 2026 Knowledge Hub
 
-  }
+</footer>
 
-  try{
+</div>
 
-    const userCredential =
-      await window.createUserWithEmailAndPassword(
-        window.auth,
-        email,
-        password
-      );
+<script type="module">
 
-    finishLogin(userCredential.user);
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-  }
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-  catch(error){
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-    try{
+const firebaseConfig = {
 
-      const userCredential =
-        await window.signInWithEmailAndPassword(
-          window.auth,
-          email,
-          password
-        );
+apiKey: "AIzaSyAHV0yTKpShBtDL53KGWHai-FmJMOUPhZI",
+authDomain: "knowledge-hub-8362f.firebaseapp.com",
+projectId: "knowledge-hub-8362f",
+storageBucket: "knowledge-hub-8362f.firebasestorage.app",
+messagingSenderId: "1038799588057",
+appId: "1:1038799588057:web:60d53f74e310a557854cc8"
 
-      finishLogin(userCredential.user);
+};
 
-    }
+const app = initializeApp(firebaseConfig);
 
-    catch(error){
+const auth = getAuth(app);
 
-      alert(error.message);
+const db = getFirestore(app);
 
-    }
+window.login = async function(){
 
-  }
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+const userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+finishLogin(userCredential.user);
 
 }
+
+catch{
+
+try{
+
+const userCredential =
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+finishLogin(userCredential.user);
+
+}
+
+catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+};
 
 function finishLogin(user){
 
-  const username = user.email.split("@")[0];
+const username =
+user.email.split("@")[0];
 
-  localStorage.setItem(
-    "loggedInUser",
-    username
-  );
+localStorage.setItem(
+"loggedInUser",
+username
+);
 
-  document.getElementById(
-    "authScreen"
-  ).style.display = "none";
+document.getElementById(
+"profileName"
+).innerText = username;
 
-  document.querySelector(
-    ".profile-card h3"
-  ).innerText = username;
+document.getElementById(
+"authScreen"
+).style.display = "none";
 
-  document.getElementById(
-    "logoutBtn"
-  ).style.display = "inline-block";
-
-}
-
-async function logout(){
-
-  await window.signOut(window.auth);
-
-  localStorage.removeItem("loggedInUser");
-
-  location.reload();
+document.getElementById(
+"logoutBtn"
+).style.display = "inline-block";
 
 }
 
-async function createPost(){
+window.logout = async function(){
 
-  const title =
-    document.getElementById("title").value;
+await signOut(auth);
 
-  const content =
-    document.getElementById("content").value;
+localStorage.removeItem(
+"loggedInUser"
+);
 
-  const category =
-    document.getElementById("category").value;
+location.reload();
 
-  const imageInput =
-    document.getElementById("image");
+};
 
-  let image = "";
+window.createPost = async function(){
 
-  if(imageInput.files[0]){
+const title =
+document.getElementById("title").value;
 
-    image = URL.createObjectURL(
-      imageInput.files[0]
-    );
+const content =
+document.getElementById("content").value;
 
-  }
+const category =
+document.getElementById("category").value;
 
-  if(title === "" || content === ""){
+const imageInput =
+document.getElementById("image");
 
-    alert("Please fill in all fields.");
-    return;
+let image = "";
 
-  }
+if(imageInput.files[0]){
 
-  const user =
-    localStorage.getItem("loggedInUser");
-
-  await window.addDoc(
-    window.collection(window.db, "posts"),
-    {
-      title,
-      content,
-      image,
-      category,
-      likes:0,
-      user
-    }
-  );
-
-  document.getElementById("title").value = "";
-  document.getElementById("content").value = "";
-
-  renderPosts();
+image = URL.createObjectURL(
+imageInput.files[0]
+);
 
 }
+
+const user =
+localStorage.getItem(
+"loggedInUser"
+);
+
+await addDoc(
+collection(db,"posts"),
+{
+title,
+content,
+category,
+image,
+user,
+likes:0
+}
+);
+
+document.getElementById("title").value = "";
+document.getElementById("content").value = "";
+
+renderPosts();
+
+};
 
 async function renderPosts(){
 
-  const container =
-    document.getElementById("postsContainer");
+const container =
+document.getElementById(
+"postsContainer"
+);
 
-  container.innerHTML = "";
+container.innerHTML = "";
 
-  const querySnapshot =
-    await window.getDocs(
-      window.collection(window.db, "posts")
-    );
+const querySnapshot =
+await getDocs(
+collection(db,"posts")
+);
 
-  querySnapshot.forEach((docItem)=>{
+querySnapshot.forEach((doc)=>{
 
-    const post = docItem.data();
+const post = doc.data();
 
-    const postDiv =
-      document.createElement("div");
+const postDiv =
+document.createElement("div");
 
-    postDiv.classList.add("post");
+postDiv.classList.add("post");
 
-    postDiv.innerHTML = `
+postDiv.innerHTML = `
 
-      <h4>${post.title}</h4>
+<h4>${post.title}</h4>
 
-      <small>
-        Posted by ${post.user}
-      </small>
+<small>
+Posted by ${post.user}
+</small>
 
-      <p>${post.content}</p>
+<p>${post.content}</p>
 
-      ${
-        post.image
-        ?
-        `<img src="${post.image}">`
-        :
-        ""
-      }
+${post.image ? `<img src="${post.image}">` : ""}
 
-      <div class="post-category">
-        ${post.category}
-      </div>
+<div class="post-category">
+${post.category}
+</div>
 
-      <div class="actions">
+<div class="actions">
 
-        <button class="like-btn">
-          ❤️ ${post.likes || 0}
-        </button>
+<button class="like-btn">
+❤️ ${post.likes || 0}
+</button>
 
-        <button class="edit-btn">
-          ✏️ Edit
-        </button>
+<button class="edit-btn">
+✏️ Edit
+</button>
 
-        <button class="delete-btn">
-          🗑️ Delete
-        </button>
+<button class="delete-btn">
+🗑️ Delete
+</button>
 
-        <button class="comment-btn">
-          💬 Comment
-        </button>
+<button class="comment-btn">
+💬 Comment
+</button>
 
-      </div>
+</div>
 
-      <div class="comments"></div>
+<div class="comments"></div>
 
-    `;
+`;
 
-    postDiv.querySelector(".like-btn")
-    .onclick = function(){
+postDiv.querySelector(".comment-btn")
+.onclick = function(){
 
-      alert("Global likes coming next 🔥");
+const comment =
+prompt("Write comment");
 
-    };
+if(comment){
 
-    postDiv.querySelector(".edit-btn")
-    .onclick = function(){
+const div =
+document.createElement("div");
 
-      alert("Edit feature coming next 🔥");
+div.classList.add("comment");
 
-    };
+div.innerText = comment;
 
-    postDiv.querySelector(".delete-btn")
-    .onclick = function(){
-
-      alert("Delete feature coming next 🔥");
-
-    };
-
-    postDiv.querySelector(".comment-btn")
-    .onclick = function(){
-
-      const comment =
-        prompt("Write a comment");
-
-      if(comment){
-
-        const commentDiv =
-          document.createElement("div");
-
-        commentDiv.classList.add("comment");
-
-        commentDiv.innerText = comment;
-
-        postDiv.querySelector(
-          ".comments"
-        ).appendChild(commentDiv);
-
-      }
-
-    };
-
-    container.prepend(postDiv);
-
-  });
+postDiv.querySelector(
+".comments"
+).appendChild(div);
 
 }
 
-function showHome(){
+};
 
-  const posts =
-    document.querySelectorAll(".post");
+container.prepend(postDiv);
 
-  posts.forEach(post=>{
-
-    post.style.display = "block";
-
-  });
+});
 
 }
 
-function showMyPosts(){
+window.showHome = function(){
 
-  const currentUser =
-    localStorage.getItem("loggedInUser");
+const posts =
+document.querySelectorAll(".post");
 
-  const posts =
-    document.querySelectorAll(".post");
+posts.forEach(post=>{
 
-  posts.forEach(post=>{
+post.style.display = "block";
 
-    const text =
-      post.querySelector("small").innerText;
+});
 
-    if(text.includes(currentUser)){
+};
 
-      post.style.display = "block";
+window.showMyPosts = function(){
 
-    }
+const currentUser =
+localStorage.getItem(
+"loggedInUser"
+);
 
-    else{
+const posts =
+document.querySelectorAll(".post");
 
-      post.style.display = "none";
+posts.forEach(post=>{
 
-    }
+const author =
+post.querySelector("small").innerText;
 
-  });
+if(author.includes(currentUser)){
+
+post.style.display = "block";
+
+}
+
+else{
+
+post.style.display = "none";
 
 }
 
-function showCategoryPosts(){
+});
 
-  const chosen =
-    prompt(
-      "Essay, Lesson, Blog, Tutorial, Story"
-    );
+};
 
-  if(!chosen) return;
+window.showCategoryPosts = function(){
 
-  const posts =
-    document.querySelectorAll(".post");
+const chosen =
+prompt("Essay, Lesson, Blog, Tutorial, Story");
 
-  posts.forEach(post=>{
+if(!chosen) return;
 
-    const category =
-      post.querySelector(
-        ".post-category"
-      ).innerText;
+const posts =
+document.querySelectorAll(".post");
 
-    if(
-      category.toLowerCase()
-      ===
-      chosen.toLowerCase()
-    ){
+posts.forEach(post=>{
 
-      post.style.display = "block";
+const category =
+post.querySelector(
+".post-category"
+).innerText;
 
-    }
+if(
+category.toLowerCase()
+===
+chosen.toLowerCase()
+){
 
-    else{
-
-      post.style.display = "none";
-
-    }
-
-  });
+post.style.display = "block";
 
 }
+
+else{
+
+post.style.display = "none";
+
+}
+
+});
+
+};
 
 const savedUser =
-  localStorage.getItem("loggedInUser");
+localStorage.getItem(
+"loggedInUser"
+);
 
 if(savedUser){
 
-  document.getElementById(
-    "authScreen"
-  ).style.display = "none";
+document.getElementById(
+"profileName"
+).innerText = savedUser;
 
-  document.querySelector(
-    ".profile-card h3"
-  ).innerText = savedUser;
+document.getElementById(
+"authScreen"
+).style.display = "none";
 
-  document.getElementById(
-    "logoutBtn"
-  ).style.display = "inline-block";
+document.getElementById(
+"logoutBtn"
+).style.display = "inline-block";
 
 }
 
@@ -922,50 +763,5 @@ renderPosts();
 
 </script>
 
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import {
-
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc
-
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyAHV0yTKpShBtDL53KGWHai-FmJMOUPhZI",
-  authDomain: "knowledge-hub-8362f.firebaseapp.com",
-  projectId: "knowledge-hub-8362f",
-  storageBucket: "knowledge-hub-8362f.firebasestorage.app",
-  messagingSenderId: "1038799588057",
-  appId: "1:1038799588057:web:60d53f74e310a557854cc8",
-  measurementId: "G-8EFVY901GP"
-};
-
-const app = initializeApp(firebaseConfig);
-
-window.auth = getAuth(app);
-
-window.db = getFirestore(app);
-
-window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-window.signOut = signOut;
-
-window.collection = collection;
-window.addDoc = addDoc;
-window.getDocs = getDocs;
-</script>
 </body>
 </html>
-```
