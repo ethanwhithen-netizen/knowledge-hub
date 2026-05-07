@@ -608,16 +608,7 @@ async function login(){
 
   }
 
-}
 
-  localStorage.setItem("loggedInUser", username);
-
-  document.getElementById("authScreen").style.display = "none";
-
-  document.querySelector(".profile-card h3").innerText = username;
-document.getElementById("logoutBtn").style.display = "inline-block";
-}
-    
  async function logout(){
 
   await window.signOut(window.auth);
