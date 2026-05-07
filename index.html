@@ -561,10 +561,14 @@
   </div>
 
   <script>
-    async function login(){
 
-  const email = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+async function login(){
+
+  const email =
+    document.getElementById("username").value;
+
+  const password =
+    document.getElementById("password").value;
 
   if(email === "" || password === ""){
 
@@ -575,23 +579,14 @@
 
   try{
 
-    const userCredential = await window.createUserWithEmailAndPassword(
-      window.auth,
-      email,
-      password
-    );
+    const userCredential =
+      await window.createUserWithEmailAndPassword(
+        window.auth,
+        email,
+        password
+      );
 
-    const user = userCredential.user;
-
-    document.getElementById("authScreen").style.display = "none";
-
-    document.querySelector(".profile-card h3").innerText = user.email;
-
-    document.getElementById("logoutBtn").style.display = "inline-block";
-
-    const username = user.email.split("@")[0];
-
-localStorage.setItem("loggedInUser", username);
+    finishLogin(userCredential.user);
 
   }
 
@@ -599,25 +594,14 @@ localStorage.setItem("loggedInUser", username);
 
     try{
 
-      const userCredential = await window.signInWithEmailAndPassword(
-        window.auth,
-        email,
-        password
-      );
+      const userCredential =
+        await window.signInWithEmailAndPassword(
+          window.auth,
+          email,
+          password
+        );
 
-      const user = userCredential.user;
-
-      document.getElementById("authScreen").style.display = "none";
-
-      document.querySelector(".profile-card h3").innerText = user.email;
-
-      document.getElementById("logoutBtn").style.display = "inline-block";
-
-      const username = email.split("@")[0];
-
-const username = user.email.split("@")[0];
-
-localStorage.setItem("loggedInUser", username);
+      finishLogin(userCredential.user);
 
     }
 
@@ -631,6 +615,29 @@ localStorage.setItem("loggedInUser", username);
 
 }
 
+function finishLogin(user){
+
+  const username = user.email.split("@")[0];
+
+  localStorage.setItem(
+    "loggedInUser",
+    username
+  );
+
+  document.getElementById(
+    "authScreen"
+  ).style.display = "none";
+
+  document.querySelector(
+    ".profile-card h3"
+  ).innerText = username;
+
+  document.getElementById(
+    "logoutBtn"
+  ).style.display = "inline-block";
+
+}
+
 async function logout(){
 
   await window.signOut(window.auth);
@@ -641,31 +648,77 @@ async function logout(){
 
 }
 
-function savePosts(posts){
+async function createPost(){
 
-  localStorage.setItem("knowledgePosts", JSON.stringify(posts));
+  const title =
+    document.getElementById("title").value;
 
-}
+  const content =
+    document.getElementById("content").value;
 
-function getPosts(){
+  const category =
+    document.getElementById("category").value;
 
-  return JSON.parse(localStorage.getItem("knowledgePosts")) || [];
+  const imageInput =
+    document.getElementById("image");
+
+  let image = "";
+
+  if(imageInput.files[0]){
+
+    image = URL.createObjectURL(
+      imageInput.files[0]
+    );
+
+  }
+
+  if(title === "" || content === ""){
+
+    alert("Please fill in all fields.");
+    return;
+
+  }
+
+  const user =
+    localStorage.getItem("loggedInUser");
+
+  await window.addDoc(
+    window.collection(window.db, "posts"),
+    {
+      title,
+      content,
+      image,
+      category,
+      likes:0,
+      user
+    }
+  );
+
+  document.getElementById("title").value = "";
+  document.getElementById("content").value = "";
+
+  renderPosts();
 
 }
 
 async function renderPosts(){
 
-  const container = document.getElementById("postsContainer");
+  const container =
+    document.getElementById("postsContainer");
 
   container.innerHTML = "";
 
-  const querySnapshot = await getDocs(collection(window.db, "posts"));
+  const querySnapshot =
+    await window.getDocs(
+      window.collection(window.db, "posts")
+    );
 
   querySnapshot.forEach((docItem)=>{
 
     const post = docItem.data();
 
-    const postDiv = document.createElement("div");
+    const postDiv =
+      document.createElement("div");
 
     postDiv.classList.add("post");
 
@@ -673,15 +726,91 @@ async function renderPosts(){
 
       <h4>${post.title}</h4>
 
-      <small>Posted by ${post.user}</small>
+      <small>
+        Posted by ${post.user}
+      </small>
 
       <p>${post.content}</p>
 
-      ${post.image ? `<img src="${post.image}" alt="Post Image">` : ""}
+      ${
+        post.image
+        ?
+        `<img src="${post.image}">`
+        :
+        ""
+      }
 
-      <div class="post-category">${post.category}</div>
+      <div class="post-category">
+        ${post.category}
+      </div>
+
+      <div class="actions">
+
+        <button class="like-btn">
+          ❤️ ${post.likes || 0}
+        </button>
+
+        <button class="edit-btn">
+          ✏️ Edit
+        </button>
+
+        <button class="delete-btn">
+          🗑️ Delete
+        </button>
+
+        <button class="comment-btn">
+          💬 Comment
+        </button>
+
+      </div>
+
+      <div class="comments"></div>
 
     `;
+
+    postDiv.querySelector(".like-btn")
+    .onclick = function(){
+
+      alert("Global likes coming next 🔥");
+
+    };
+
+    postDiv.querySelector(".edit-btn")
+    .onclick = function(){
+
+      alert("Edit feature coming next 🔥");
+
+    };
+
+    postDiv.querySelector(".delete-btn")
+    .onclick = function(){
+
+      alert("Delete feature coming next 🔥");
+
+    };
+
+    postDiv.querySelector(".comment-btn")
+    .onclick = function(){
+
+      const comment =
+        prompt("Write a comment");
+
+      if(comment){
+
+        const commentDiv =
+          document.createElement("div");
+
+        commentDiv.classList.add("comment");
+
+        commentDiv.innerText = comment;
+
+        postDiv.querySelector(
+          ".comments"
+        ).appendChild(commentDiv);
+
+      }
+
+    };
 
     container.prepend(postDiv);
 
@@ -689,92 +818,12 @@ async function renderPosts(){
 
 }
 
+function showHome(){
 
-if(savedUser){
+  const posts =
+    document.querySelectorAll(".post");
 
-  document.getElementById("authScreen").style.display = "none";
-
-  document.querySelector(".profile-card h3").innerText = savedUser;
-
-  document.getElementById("logoutBtn").style.display = "inline-block";
-
-}
-async function createPost(){
-
-  const title = document.getElementById("title").value;
-
-  const content = document.getElementById("content").value;
-
-  const imageInput = document.getElementById("image");
-
-  let image = "";
-
-  if(imageInput.files[0]){
-
-    image = URL.createObjectURL(imageInput.files[0]);
-
-  }
-
-  const category = document.getElementById("category").value;
-
-  if(title === "" || content === ""){
-
-    alert("Please fill in all fields.");
-
-    return;
-
-  }
-
-  const user = localStorage.getItem("loggedInUser");
-
-  await window.addDoc(window.collection(window.db, "posts"), {
-
-    title,
-    content,
-    image,
-    category,
-    likes:0,
-    user
-
-  });
-
-  document.getElementById("title").value = "";
-
-  document.getElementById("content").value = "";
-function showCategoryPosts(){
-
-  const chosenCategory = prompt(
-    "Choose category: Essay, Lesson, Blog, Tutorial, Story"
-  );
-
-  const posts = document.querySelectorAll(".post");
-
-  posts.forEach(post => {
-
-    const category =
-      post.querySelector(".post-category").innerText;
-
-    if(
-      category.toLowerCase() ===
-      chosenCategory.toLowerCase()
-    ){
-
-      post.style.display = "block";
-
-    } else {
-
-      post.style.display = "none";
-
-    }
-
-  });
-
-}
-  function showHome(){
-
-  const posts = document.querySelectorAll(".post");
-
-  posts.forEach(post => {
+  posts.forEach(post=>{
 
     post.style.display = "block";
 
@@ -787,18 +836,21 @@ function showMyPosts(){
   const currentUser =
     localStorage.getItem("loggedInUser");
 
-  const posts = document.querySelectorAll(".post");
+  const posts =
+    document.querySelectorAll(".post");
 
-  posts.forEach(post => {
+  posts.forEach(post=>{
 
-    const postUser =
+    const text =
       post.querySelector("small").innerText;
 
-    if(postUser.includes(currentUser)){
+    if(text.includes(currentUser)){
 
       post.style.display = "block";
 
-    } else {
+    }
+
+    else{
 
       post.style.display = "none";
 
@@ -810,54 +862,34 @@ function showMyPosts(){
 
 function showCategoryPosts(){
 
-  const chosenCategory = prompt(
-    "Choose: Essay, Lesson, Blog, Tutorial, Story"
-  );
+  const chosen =
+    prompt(
+      "Essay, Lesson, Blog, Tutorial, Story"
+    );
 
-  if(!chosenCategory) return;
+  if(!chosen) return;
 
-  const posts = document.querySelectorAll(".post");
+  const posts =
+    document.querySelectorAll(".post");
 
-  posts.forEach(post => {
+  posts.forEach(post=>{
 
     const category =
-      post.querySelector(".post-category").innerText;
+      post.querySelector(
+        ".post-category"
+      ).innerText;
 
     if(
-      category.toLowerCase() ===
-      chosenCategory.toLowerCase()
+      category.toLowerCase()
+      ===
+      chosen.toLowerCase()
     ){
 
       post.style.display = "block";
 
-    } else {
-
-      post.style.display = "none";
-
     }
 
-  });
-
-} 
-  renderPosts();
-
-}
-
-function showMyPosts(){
-
-  const currentUser = localStorage.getItem("loggedInUser");
-
-  const posts = document.querySelectorAll(".post");
-
-  posts.forEach(post => {
-
-    const author = post.querySelector("small").innerText;
-
-    if(author.includes(currentUser)){
-
-      post.style.display = "block";
-
-    } else {
+    else{
 
       post.style.display = "none";
 
@@ -867,7 +899,25 @@ function showMyPosts(){
 
 }
 
-const savedUser = localStorage.getItem("loggedInUser");
+const savedUser =
+  localStorage.getItem("loggedInUser");
+
+if(savedUser){
+
+  document.getElementById(
+    "authScreen"
+  ).style.display = "none";
+
+  document.querySelector(
+    ".profile-card h3"
+  ).innerText = savedUser;
+
+  document.getElementById(
+    "logoutBtn"
+  ).style.display = "inline-block";
+
+}
+
 renderPosts();
 
 </script>
