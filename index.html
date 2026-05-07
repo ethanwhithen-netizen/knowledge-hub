@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Hub</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#020617;
+  color:white;
+  min-height:100vh;
+  display:flex;
+}
+
+#authScreen{
+  position:fixed;
+  inset:0;
+  background:#020617;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.auth-box{
+  width:400px;
+  max-width:90%;
+  background:#0f172a;
+  padding:40px;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,0.08);
+  text-align:center;
+}
+
+.auth-box h1{
+  color:#60a5fa;
+  margin-bottom:15px;
+}
+
+.auth-box p{
+  color:#94a3b8;
+  margin-bottom:20px;
+}
+
+.auth-box input{
+  width:100%;
+  margin-top:15px;
+}
+
+.sidebar{
+  width:270px;
+  background:#0f172a;
+  padding:30px 20px;
+  position:fixed;
+  height:100%;
+  overflow:auto;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+  font-size:2rem;
+  font-weight:700;
+  color:#60a5fa;
+  margin-bottom:35px;
+}
+
+.profile-card{
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  border-radius:25px;
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#2563eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:2rem;
+  margin-bottom:15px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  padding:15px;
+  margin-bottom:12px;
+  border-radius:16px;
+  cursor:pointer;
+  background:rgba(255,255,255,0.03);
+  transition:0.3s;
+}
+
+.sidebar li:hover{
+  background:rgba(255,255,255,0.08);
+}
+
+.main{
+  margin-left:270px;
+  width:100%;
+  padding:40px;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:35px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#111827,#1e293b);
+  padding:50px;
+  border-radius:30px;
+  margin-bottom:30px;
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.card{
+  background:#0f172a;
+  padding:30px;
+  border-radius:28px;
+  margin-bottom:30px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:15px;
+  background:#1e293b;
+  color:white;
+  margin-top:15px;
+}
+
+textarea{
+  min-height:180px;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+}
+
+.submit-btn,
+.top-buttons button,
+.auth-box button{
+  background:#2563eb;
+  color:white;
+  padding:14px 20px;
+  border-radius:15px;
+  margin-top:18px;
+}
+
+.posts{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:25px;
+}
+
+.post{
+  background:#111827;
+  padding:25px;
+  border-radius:25px;
+}
+
+.post h4{
+  color:#60a5fa;
+  margin-bottom:10px;
+}
+
+.post p{
+  margin-top:15px;
+  line-height:1.7;
+}
+
+.post img{
+  width:100%;
+  border-radius:18px;
+  margin-top:15px;
+}
+
+.post-category{
+  display:inline-block;
+  margin-top:15px;
+  background:#1d4ed8;
+  padding:7px 14px;
+  border-radius:30px;
+  font-size:0.85rem;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.actions button{
+  color:white;
+  padding:10px 15px;
+  border-radius:12px;
+}
+
+.like-btn{
+  background:#db2777;
+}
+
+.edit-btn{
+  background:#2563eb;
+}
+
+.delete-btn{
+  background:crimson;
+}
+
+.comment-btn{
+  background:#059669;
+}
+
+.comments{
+  margin-top:15px;
+}
+
+.comment{
+  background:rgba(255,255,255,0.05);
+  padding:10px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+footer{
+  margin-top:40px;
+  text-align:center;
+  color:#94a3b8;
+}
+
+@media(max-width:900px){
+
+  body{
+    display:block;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    padding:20px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="authScreen">
+
+  <div class="auth-box">
+
+    <h1>Knowledge Hub 🚀</h1>
+
+    <p>Create account or login</p>
+
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login / Register</button>
+
+  </div>
+
+</div>
+
+<div class="sidebar">
+
+  <div class="logo">Knowledge Hub</div>
+
+  <div class="profile-card">
+
+    <div class="avatar">👤</div>
+
+    <h3 id="profileName">Guest</h3>
+
+    <p>Writer & Learner</p>
+
+  </div>
+
+  <ul>
+
+    <li onclick="showHome()">🏠 Home</li>
+
+    <li onclick="showCategoryPosts()">📚 Categories</li>
+
+    <li onclick="showMyPosts()">📝 My Posts</li>
+
+  </ul>
+
+</div>
+
+<div class="main">
+
+<header>
+
+<h1>Knowledge Hub</h1>
+
+<div class="top-buttons">
+
+<button id="logoutBtn" onclick="logout()" style="display:none;">
+Logout
+</button>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<h2>Share Knowledge With The World 🚀</h2>
+
+<p>
+Publish blogs, essays, tutorials and ideas beautifully.
+</p>
+
+</section>
+
+<div class="card">
+
+<h3>Create New Post</h3>
+
+<input type="text" id="title" placeholder="Post title">
+
+<textarea id="content" placeholder="Write something amazing"></textarea>
+
+<input type="file" id="image" accept="image/*">
+
+<select id="category">
+
+<option>Essay</option>
+<option>Lesson</option>
+<option>Blog</option>
+<option>Tutorial</option>
+<option>Story</option>
+
+</select>
+
+<button class="submit-btn" onclick="createPost()">
+Publish Post
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>Community Posts</h3>
+
+<div class="posts" id="postsContainer"></div>
+
+</div>
+
+<footer>
+
+© 2026 Knowledge Hub
+
+</footer>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyAHV0yTKpShBtDL53KGWHai-FmJMOUPhZI",
+authDomain: "knowledge-hub-8362f.firebaseapp.com",
+projectId: "knowledge-hub-8362f",
+storageBucket: "knowledge-hub-8362f.firebasestorage.app",
+messagingSenderId: "1038799588057",
+appId: "1:1038799588057:web:60d53f74e310a557854cc8"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+window.login = async function(){
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+const userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+finishLogin(userCredential.user);
+
+}
+
+catch{
+
+try{
+
+const userCredential =
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+finishLogin(userCredential.user);
+
+}
+
+catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+};
+
+function finishLogin(user){
+
+const username =
+user.email.split("@")[0];
+
+localStorage.setItem(
+"loggedInUser",
+username
+);
+
+document.getElementById(
+"profileName"
+).innerText = username;
+
+document.getElementById(
+"authScreen"
+).style.display = "none";
+
+document.getElementById(
+"logoutBtn"
+).style.display = "inline-block";
+
+}
+
+window.logout = async function(){
+
+await signOut(auth);
+
+localStorage.removeItem(
+"loggedInUser"
+);
+
+location.reload();
+
+};
+
+window.createPost = async function(){
+
+const title =
+document.getElementById("title").value;
+
+const content =
+document.getElementById("content").value;
+
+const category =
+document.getElementById("category").value;
+
+const imageInput =
+document.getElementById("image");
+
+let image = "";
+
+if(imageInput.files[0]){
+
+image = URL.createObjectURL(
+imageInput.files[0]
+);
+
+}
+
+const user =
+localStorage.getItem(
+"loggedInUser"
+);
+
+await addDoc(
+collection(db,"posts"),
+{
+title,
+content,
+category,
+image,
+user,
+likes:0
+}
+);
+
+document.getElementById("title").value = "";
+document.getElementById("content").value = "";
+
+renderPosts();
+
+};
+
+async function renderPosts(){
+
+const container =
+document.getElementById(
+"postsContainer"
+);
+
+container.innerHTML = "";
+
+const querySnapshot =
+await getDocs(
+collection(db,"posts")
+);
+
+querySnapshot.forEach((doc)=>{
+
+const post = doc.data();
+
+const postDiv =
+document.createElement("div");
+
+postDiv.classList.add("post");
+
+postDiv.innerHTML = `
+
+<h4>${post.title}</h4>
+
+<small>
+Posted by ${post.user}
+</small>
+
+<p>${post.content}</p>
+
+${post.image ? `<img src="${post.image}">` : ""}
+
+<div class="post-category">
+${post.category}
+</div>
+
+<div class="actions">
+
+<button class="like-btn">
+❤️ ${post.likes || 0}
+</button>
+
+<button class="edit-btn">
+✏️ Edit
+</button>
+
+<button class="delete-btn">
+🗑️ Delete
+</button>
+
+<button class="comment-btn">
+💬 Comment
+</button>
+
+</div>
+
+<div class="comments"></div>
+
+`;
+
+postDiv.querySelector(".comment-btn")
+.onclick = function(){
+
+const comment =
+prompt("Write comment");
+
+if(comment){
+
+const div =
+document.createElement("div");
+
+div.classList.add("comment");
+
+div.innerText = comment;
+
+postDiv.querySelector(
+".comments"
+).appendChild(div);
+
+}
+
+};
+
+container.prepend(postDiv);
+
+});
+
+}
+
+window.showHome = function(){
+
+const posts =
+document.querySelectorAll(".post");
+
+posts.forEach(post=>{
+
+post.style.display = "block";
+
+});
+
+};
+
+window.showMyPosts = function(){
+
+const currentUser =
+localStorage.getItem(
+"loggedInUser"
+);
+
+const posts =
+document.querySelectorAll(".post");
+
+posts.forEach(post=>{
+
+const author =
+post.querySelector("small").innerText;
+
+if(author.includes(currentUser)){
+
+post.style.display = "block";
+
+}
+
+else{
+
+post.style.display = "none";
+
+}
+
+});
+
+};
+
+window.showCategoryPosts = function(){
+
+const chosen =
+prompt("Essay, Lesson, Blog, Tutorial, Story");
+
+if(!chosen) return;
+
+const posts =
+document.querySelectorAll(".post");
+
+posts.forEach(post=>{
+
+const category =
+post.querySelector(
+".post-category"
+).innerText;
+
+if(
+category.toLowerCase()
+===
+chosen.toLowerCase()
+){
+
+post.style.display = "block";
+
+}
+
+else{
+
+post.style.display = "none";
+
+}
+
+});
+
+};
+
+const savedUser =
+localStorage.getItem(
+"loggedInUser"
+);
+
+if(savedUser){
+
+document.getElementById(
+"profileName"
+).innerText = savedUser;
+
+document.getElementById(
+"authScreen"
+).style.display = "none";
+
+document.getElementById(
+"logoutBtn"
+).style.display = "inline-block";
+
+}
+
+renderPosts();
+
+</script>
+
+</body>
+</html>
